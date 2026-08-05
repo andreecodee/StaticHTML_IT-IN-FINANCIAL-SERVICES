@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web-Slinger Academy — Belajar Ngoding Selincah Spider-Man</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red: #e23636;
+    --dark-red: #a11d1d;
+    --blue: #1b3faa;
+    --dark-blue: #0b1740;
+    --black: #0a0a0a;
+    --white: #f5f5f5;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  body{
+    font-family: 'Poppins', sans-serif;
+    background: var(--dark-blue);
+    color: var(--white);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  .comic{
+    font-family: 'Bangers', cursive;
+    letter-spacing: 1px;
+  }
+
+  /* Web pattern background */
+  .web-bg{
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 60px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 60px);
+  }
+
+  a{ text-decoration:none; }
+
+  /* NAVBAR */
+  header{
+    position: sticky; top:0; z-index:100;
+    background: var(--black);
+    border-bottom: 4px solid var(--red);
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 6%;
+  }
+  .logo{
+    font-family:'Bangers', cursive;
+    font-size: 1.8rem;
+    color: var(--red);
+    -webkit-text-stroke: 1px white;
+  }
+  nav a{ color: var(--white); margin-left: 26px; font-weight:500; font-size:.95rem; transition:.2s; }
+  nav a:hover{ color: var(--red); }
+
+  .btn{
+    display:inline-block;
+    background: var(--red);
+    color: white;
+    padding: 14px 34px;
+    border-radius: 40px;
+    font-weight:700;
+    font-size: 1rem;
+    border: 3px solid var(--black);
+    box-shadow: 4px 4px 0 var(--black);
+    transition: transform .15s ease;
+  }
+  .btn:hover{ transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--black); }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    min-height: 90vh;
+    display:flex; align-items:center;
+    background: radial-gradient(circle at 30% 30%, var(--red) 0%, var(--dark-red) 35%, var(--dark-blue) 75%);
+    padding: 60px 6%;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-conic-gradient(rgba(255,255,255,0.05) 0% 2%, transparent 2% 4%);
+    mix-blend-mode: overlay;
+    opacity:.5;
+  }
+  .hero-content{ max-width: 640px; position:relative; z-index:2; }
+  .hero h1{
+    font-family:'Bangers', cursive;
+    font-size: clamp(2.6rem, 6vw, 4.5rem);
+    line-height: 1.05;
+    color: white;
+    -webkit-text-stroke: 2px var(--black);
+    text-shadow: 5px 5px 0 var(--black);
+  }
+  .hero h1 span{ color: var(--dark-blue); -webkit-text-stroke: 2px white; }
+  .hero p{
+    margin: 22px 0 30px;
+    font-size: 1.1rem;
+    color: #f1f1f1;
+    max-width: 520px;
+  }
+  .hero-tag{
+    display:inline-block;
+    background: var(--black);
+    color: var(--red);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight:700;
+    font-size: .85rem;
+    margin-bottom: 18px;
+  }
+
+  /* SECTION TITLES */
+  .section{ padding: 90px 6%; }
+  .section-title{
+    text-align:center;
+    font-family:'Bangers', cursive;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--red);
+    -webkit-text-stroke: 1px white;
+    margin-bottom: 12px;
+  }
+  .section-sub{
+    text-align:center;
+    color: #cfd6f0;
+    max-width: 560px;
+    margin: 0 auto 50px;
+  }
+
+  /* FEATURES */
+  .features{ background: var(--black); }
+  .feature-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .feature-card{
+    background: linear-gradient(160deg, var(--dark-blue), #14204d);
+    border: 2px solid var(--red);
+    border-radius: 16px;
+    padding: 36px 26px;
+    text-align:center;
+    transition: transform .2s;
+  }
+  .feature-card:hover{ transform: translateY(-8px); }
+  .feature-icon{
+    width: 66px; height: 66px;
+    background: var(--red);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    margin: 0 auto 18px;
+    font-size: 1.8rem;
+    border: 3px solid white;
+  }
+  .feature-card h3{ font-family:'Bangers', cursive; letter-spacing:1px; font-size:1.4rem; color:white; margin-bottom:10px;}
+  .feature-card p{ color: #c9d0ea; font-size: .95rem; }
+
+  /* PORTFOLIO */
+  .portfolio{ background: var(--dark-blue); }
+  .portfolio-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .portfolio-card{
+    background: var(--black);
+    border-radius: 14px;
+    overflow:hidden;
+    border: 2px solid var(--red);
+    transition: transform .2s;
+  }
+  .portfolio-card:hover{ transform: translateY(-8px); }
+  .portfolio-thumb{
+    height: 170px;
+    background: linear-gradient(135deg, var(--red), var(--dark-blue));
+    display:flex; align-items:center; justify-content:center;
+    font-size: 2.6rem;
+    position:relative;
+  }
+  .portfolio-thumb::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.06) 2px, transparent 2px, transparent 14px);
+  }
+  .portfolio-body{ padding: 22px; }
+  .portfolio-body span.tag{
+    display:inline-block;
+    background: var(--red);
+    color:white; font-size:.72rem; font-weight:700;
+    padding: 3px 12px; border-radius: 14px; margin-bottom: 10px;
+  }
+  .portfolio-body h3{ font-family:'Bangers', cursive; letter-spacing:1px; font-size:1.3rem; color:white; margin-bottom:8px;}
+  .portfolio-body p{ color: #c9d0ea; font-size: .9rem; }
+
+  /* PRICING */
+  .pricing{ background: var(--black); }
+  .price-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: end;
+  }
+  .price-card{
+    background: var(--dark-blue);
+    border-radius: 18px;
+    padding: 40px 28px;
+    text-align:center;
+    border: 2px solid #2a3a7a;
+  }
+  .price-card.popular{
+    border: 3px solid var(--red);
+    transform: scale(1.06);
+    box-shadow: 0 0 30px rgba(226,54,54,.4);
+  }
+  .price-card h3{ font-family:'Bangers', cursive; font-size:1.5rem; color: var(--red);}
+  .price{ font-size: 2.4rem; font-weight:700; margin: 16px 0; }
+  .price small{ font-size:1rem; font-weight:400; color:#aab2d9;}
+  .price-card ul{ list-style:none; margin: 20px 0 28px; text-align:left; }
+  .price-card ul li{ padding: 8px 0; color:#cfd6f0; font-size:.92rem; border-bottom: 1px solid rgba(255,255,255,.08);}
+  .price-card ul li::before{ content: "✔ "; color: var(--red); font-weight:700;}
+  .badge{
+    display:inline-block; background: var(--red); color:white; font-size:.75rem;
+    padding: 4px 14px; border-radius: 20px; margin-bottom: 14px; font-weight:700;
+  }
+
+  /* FAQ */
+  .faq{ background: var(--dark-blue); }
+  .faq-list{ max-width: 760px; margin: 0 auto; }
+  .faq-item{
+    background: var(--black);
+    border-left: 5px solid var(--red);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .faq-item h4{ color:white; font-size: 1.02rem; margin-bottom:8px;}
+  .faq-item p{ color:#c9d0ea; font-size:.92rem; }
+
+  /* CTA STRIP */
+  .cta-strip{
+    background: var(--red);
+    text-align:center;
+    padding: 60px 6%;
+    background-image: radial-gradient(circle at 50% 0%, rgba(255,255,255,.15), transparent 60%);
+  }
+  .cta-strip h2{ font-family:'Bangers', cursive; font-size: clamp(1.8rem,4vw,2.6rem); margin-bottom:18px; color:white; -webkit-text-stroke:1px var(--black);}
+  .cta-strip .btn{ background: var(--black); }
+
+  /* FOOTER */
+  footer{
+    background: var(--black);
+    padding: 50px 6% 24px;
+    border-top: 4px solid var(--red);
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto 30px;
+  }
+  .footer-grid h4{ font-family:'Bangers', cursive; color: var(--red); margin-bottom: 14px; font-size:1.1rem;}
+  .footer-grid p, .footer-grid a{ color:#b7bfe0; font-size:.88rem; display:block; margin-bottom:8px; }
+  .footer-grid a:hover{ color: var(--red); }
+  .footer-bottom{
+    text-align:center;
+    color:#7580ab;
+    font-size:.8rem;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px){
+    nav{ display:none; }
+    .feature-grid, .testi-grid, .price-grid{ grid-template-columns: 1fr; }
+    .price-card.popular{ transform:none; }
+    .footer-grid{ grid-template-columns: 1fr 1fr; }
+    .hero{ text-align:center; }
+    .hero-content{ margin:0 auto; }
+    .hero p{ margin-left:auto; margin-right:auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">WEB-SLINGER</div>
+  <nav>
+    <a href="#fitur">Fitur</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#harga">Harga</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+</header>
+
+<section class="hero web-bg">
+  <div class="hero-content">
+    <span class="hero-tag">🕸️ Kelas Coding Rasa Superhero</span>
+    <h1 class="comic">JADI JAGO NGODING,<br>SELINCAH <span>SPIDER-MAN</span></h1>
+    <p>Web-Slinger Academy adalah kelas online buat kamu yang mau belajar bikin website dari nol — dengan cara seru, praktik langsung, dan mentor yang siap 'menjaring' semua pertanyaanmu.</p>
+    <a href="https://wa.me/6281234567890?text=Halo%20Web-Slinger%20Academy%2C%20saya%20mau%20gabung%20kelas!" target="_blank" class="btn comic">GABUNG SEKARANG!</a>
+  </div>
+</section>
+
+<section class="section features web-bg" id="fitur">
+  <h2 class="section-title comic">KEKUATAN YANG KAMU DAPAT</h2>
+  <p class="section-sub">Tiga senjata utama buat mengubahmu jadi web developer yang tangguh.</p>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🕷️</div>
+      <h3 class="comic">SPIDEY SENSE CODE REVIEW</h3>
+      <p>Setiap project kamu direview langsung, mentor bakal 'mencium' bug sebelum jadi masalah besar.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏙️</div>
+      <h3 class="comic">MISI NYATA ALA KOTA</h3>
+      <p>Belajar lewat studi kasus proyek nyata, bukan cuma teori — langsung praktik bangun website.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🕸️</div>
+      <h3 class="comic">KOMUNITAS WEB-SLINGER</h3>
+      <p>Gabung ke jaringan sesama murid & alumni buat saling bantu, diskusi, dan cari kerja bareng.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section portfolio web-bg" id="portfolio">
+  <h2 class="section-title comic">HASIL JARINGAN KAMI</h2>
+  <p class="section-sub">Beberapa karya yang lahir dari tangan para Web-Slinger lulusan academy.</p>
+  <div class="portfolio-grid">
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">🏙️</div>
+      <div class="portfolio-body">
+        <span class="tag">Landing Page</span>
+        <h3 class="comic">KOPI SENJA UMKM</h3>
+        <p>Website promosi untuk usaha kopi lokal, dibuat oleh alumni batch 3 dalam waktu 2 minggu.</p>
+      </div>
+    </div>
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">🕸️</div>
+      <div class="portfolio-body">
+        <span class="tag">Portfolio Pribadi</span>
+        <h3 class="comic">PORTFOLIO RAKA</h3>
+        <p>Website portofolio pribadi yang membantu Raka dapat kerja pertama sebagai frontend developer.</p>
+      </div>
+    </div>
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">🕷️</div>
+      <div class="portfolio-body">
+        <span class="tag">Web App</span>
+        <h3 class="comic">CATATAN HARIAN</h3>
+        <p>Aplikasi pencatat harian sederhana, hasil project akhir dari paket Ultimate Hero.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pricing web-bg" id="harga">
+  <h2 class="section-title comic">PILIH PAKET JARINGMU</h2>
+  <p class="section-sub">Investasi sekali, skill nempel seumur hidup.</p>
+  <div class="price-grid">
+    <div class="price-card">
+      <h3 class="comic">STARTER WEB</h3>
+      <div class="price">Rp299K <small>/bulan</small></div>
+      <ul>
+        <li>Akses materi dasar HTML & CSS</li>
+        <li>1x konsultasi mentor / bulan</li>
+        <li>Akses komunitas</li>
+      </ul>
+      <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20daftar%20paket%20Starter%20Web" target="_blank" class="btn comic" style="width:100%; display:block;">PILIH</a>
+    </div>
+    <div class="price-card popular">
+      <span class="badge">PALING LARIS</span>
+      <h3 class="comic">AMAZING SLINGER</h3>
+      <div class="price">Rp599K <small>/bulan</small></div>
+      <ul>
+        <li>Semua materi HTML, CSS, JS</li>
+        <li>4x konsultasi mentor / bulan</li>
+        <li>Review project tanpa batas</li>
+        <li>Sertifikat kelulusan</li>
+      </ul>
+      <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20daftar%20paket%20Amazing%20Slinger" target="_blank" class="btn comic" style="width:100%; display:block;">PILIH</a>
+    </div>
+    <div class="price-card">
+      <h3 class="comic">ULTIMATE HERO</h3>
+      <div class="price">Rp999K <small>/bulan</small></div>
+      <ul>
+        <li>Semua materi + Framework modern</li>
+        <li>Mentor pribadi 1-on-1</li>
+        <li>Bantuan portofolio & CV</li>
+        <li>Prioritas job connect</li>
+      </ul>
+      <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20daftar%20paket%20Ultimate%20Hero" target="_blank" class="btn comic" style="width:100%; display:block;">PILIH</a>
+    </div>
+  </div>
+</section>
+
+<section class="section faq web-bg" id="faq">
+  <h2 class="section-title comic">PERTANYAAN SERING MUNCUL</h2>
+  <p class="section-sub">Masih ragu? Cek dulu jawabannya di sini.</p>
+  <div class="faq-list">
+    <div class="faq-item">
+      <h4>Apakah kelas ini cocok untuk pemula total?</h4>
+      <p>Cocok banget! Materi disusun dari nol, jadi kamu nggak perlu punya pengalaman coding sebelumnya.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Belajarnya live atau rekaman?</h4>
+      <p>Kombinasi keduanya — ada sesi live mingguan dan rekaman yang bisa diakses kapan saja.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Apakah dapat sertifikat setelah lulus?</h4>
+      <p>Ya, paket Amazing Slinger dan Ultimate Hero sudah termasuk sertifikat kelulusan resmi.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Bisa berhenti berlangganan kapan saja?</h4>
+      <p>Tentu, langganan bersifat bulanan dan bisa dihentikan kapan pun tanpa penalti.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <h2 class="comic">SIAP JADI PAHLAWAN CODE-MU SENDIRI?</h2>
+  <a href="https://wa.me/6281234567890?text=Halo%20Web-Slinger%20Academy%2C%20saya%20mau%20mulai%20petualangan%20coding!" target="_blank" class="btn comic">MULAI PETUALANGAN</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>WEB-SLINGER ACADEMY</h4>
+      <p>Belajar coding dengan semangat superhero. Dari nol jadi jago, satu klik satu jaring web.</p>
+    </div>
+    <div>
+      <h4>Navigasi</h4>
+      <a href="#fitur">Fitur</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#harga">Harga</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div>
+      <h4>Kontak</h4>
+      <a href="#">hello@webslinger.id</a>
+      <a href="#">+62 812-3456-7890</a>
+      <a href="#">Jakarta, Indonesia</a>
+    </div>
+    <div>
+      <h4>Ikuti Kami</h4>
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+      <a href="#">YouTube</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Web-Slinger Academy. Semua hak dilindungi. Terinspirasi dari semangat Spider-Man 🕸️
+  </div>
+</footer>
+
+</body>
+</html>
